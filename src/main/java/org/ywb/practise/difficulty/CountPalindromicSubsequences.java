@@ -38,8 +38,8 @@ package org.ywb.practise.difficulty;
  * 字符串 S 的长度将在[1, 1000]范围内。
  * 每个字符 S[i] 将会是集合 {'a', 'b', 'c', 'd'} 中的某一个。
  */
-public class CountPalindromicSubsequences {
-    public int countPalindromicSubsequences(String S) {
-
-    }
-}
+//public class CountPalindromicSubsequences {
+//    public int countPalindromicSubsequences(String S) {
+//
+//    }
+//}
