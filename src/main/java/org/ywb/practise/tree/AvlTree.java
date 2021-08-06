@@ -38,7 +38,7 @@ public class AvlTree<T extends Comparable<T>> {
         }
     }
 
-    public int height(){
+    public int height() {
         return root.height;
     }
 
@@ -51,19 +51,21 @@ public class AvlTree<T extends Comparable<T>> {
 
     /**
      * 左旋
+     * <pre>
      *       4                2
      *      / \              / \
-     *     2   5    --->    1  4
-     *    / \              /  / \
-     *   1   3            0  3   5
+     *     2   5    --->    1   4
+     *    / \              /   / \
+     *   1   3            0   3   5
      *  /
      * 0
+     * </pre>
      *
      * @param avlNode 当前根节点
      * @return 左旋后的当前根节点
      */
     private AvlNode ll(AvlNode avlNode) {
-        if (avlNode==null) {
+        if (avlNode == null) {
             return null;
         }
         // 获取当前传入二叉树根节点的左儿子
@@ -72,14 +74,15 @@ public class AvlTree<T extends Comparable<T>> {
         avlNode.left = leftNode.right;
         leftNode.right = avlNode;
         // 重新计算高度
-        leftNode.height = Integer.max(this.height(leftNode.left), this.height(leftNode.right))+1;
-        avlNode.height = Integer.max(this.height(avlNode), this.height(avlNode))+1;
+        leftNode.height = Integer.max(this.height(leftNode.left), this.height(leftNode.right)) + 1;
+        avlNode.height = Integer.max(this.height(avlNode), this.height(avlNode)) + 1;
         // 此时当前二叉树的根节点为刚刚的左儿子
         return leftNode;
     }
 
     /**
      * 右旋
+     * <pre>
      *     2                    4
      *    / \                  / \
      *   1   4                2   5
@@ -87,12 +90,13 @@ public class AvlTree<T extends Comparable<T>> {
      *     3   5            1   3   6
      *          \
      *           6
+     * </pre>
      *
      * @param avlNode 当前根节点
      * @return 右旋后的当前根节点
      */
     private AvlNode rr(AvlNode avlNode) {
-        if (avlNode==null) {
+        if (avlNode == null) {
             return null;
         }
         // 获取当前传入二叉树根节点的右儿子
@@ -101,14 +105,15 @@ public class AvlTree<T extends Comparable<T>> {
         avlNode.right = rightNode.left;
         rightNode.left = avlNode;
         // 重新计算高度
-        rightNode.height = Integer.max(this.height(rightNode.left), this.height(rightNode.right))+1;
-        avlNode.height = Integer.max(this.height(avlNode.left), this.height(avlNode.right))+1;
+        rightNode.height = Integer.max(this.height(rightNode.left), this.height(rightNode.right)) + 1;
+        avlNode.height = Integer.max(this.height(avlNode.left), this.height(avlNode.right)) + 1;
         // 此时当前二叉树的根节点为刚刚的右儿子
         return rightNode;
     }
 
     /**
      * 左右模式，先右旋，然后左旋
+     * <pre>
      *        6                 6                 4
      *       / \               / \              /  \
      *      2   7             4   7            2    6
@@ -116,11 +121,13 @@ public class AvlTree<T extends Comparable<T>> {
      *    1   4             2   5            1   3 5   7
      *       / \           / \
      *      3   5         1   3
+     * </pre>
+     *
      * @param avlNode 当前根节点
      * @return 旋转后的当前根节点
      */
-    private AvlNode lr(AvlNode avlNode){
-        if(avlNode==null){
+    private AvlNode lr(AvlNode avlNode) {
+        if (avlNode == null) {
             return null;
         }
         avlNode.left = rr(avlNode.left);
@@ -129,26 +136,26 @@ public class AvlTree<T extends Comparable<T>> {
 
     /**
      * 右左模式，先左旋，然后右旋
-     *           2                2                   4
-     *          / \              / \                /   \
-     *         1   6            1  4               2     6
-     *            / \   --->      / \       --->  / \   / \
-     *           4   7           3   6           1   3 5  7
-     *          / \                 / \
-     *         3   5               5   7
+     * <pre>
+     *           2                2                    4
+     *          / \              / \                 /   \
+     *         1   6            1   4               2     6
+     *            / \   --->       / \       --->  / \   / \
+     *           4   7            3   6           1   3 5   7
+     *          / \                  / \
+     *         3   5                5   7
+     * </pre>
      *
      * @param avlNode 当前根节点
      * @return 旋转后的根节点
      */
-    private AvlNode rl(AvlNode avlNode){
-        if(avlNode==null){
+    private AvlNode rl(AvlNode avlNode) {
+        if (avlNode == null) {
             return null;
         }
         avlNode.right = ll(avlNode.right);
         return rr(avlNode);
     }
-
-
 
 
     /**
@@ -158,7 +165,7 @@ public class AvlTree<T extends Comparable<T>> {
      */
     public void delete(T data) {
         root = deleteCore(data, root);
-        height = root!=null?root.height:0;
+        height = root != null ? root.height : 0;
     }
 
     /**
@@ -227,7 +234,7 @@ public class AvlTree<T extends Comparable<T>> {
 
         }
         // 重新计算节点的高度
-        if(root!=null){
+        if (root != null) {
             root.height = Integer.max(height(root.left), height(root.right)) + 1;
         }
         return root;
@@ -258,7 +265,7 @@ public class AvlTree<T extends Comparable<T>> {
             root.left = insertCore(data, root.left);
             // 是否需要平衡
             if ((height(root.left) - height(root.right) > 1)) {
-                if (height(root.left.left)>height(root.left.right)) {
+                if (height(root.left.left) > height(root.left.right)) {
                     // LL情况
                     root = ll(root);
                 } else {
@@ -270,7 +277,7 @@ public class AvlTree<T extends Comparable<T>> {
             root.right = insertCore(data, root.right);
             // 是否需要平衡
             if ((height(root.right) - height(root.left) > 1)) {
-                if (height(root.right.right)>height(root.right.left)) {
+                if (height(root.right.right) > height(root.right.left)) {
                     // RR情况
                     root = rr(root);
                 } else {
@@ -280,7 +287,7 @@ public class AvlTree<T extends Comparable<T>> {
             }
         }
         // 重新计算节点高度
-        if(root != null){
+        if (root != null) {
             root.height = Integer.max(height(root.left), height(root.right)) + 1;
         }
         // 节点和当前root节点相等，直接返回
@@ -313,29 +320,29 @@ public class AvlTree<T extends Comparable<T>> {
      * @param data data
      * @return bool
      */
-    public boolean contains(T data){
+    public boolean contains(T data) {
         AvlNode p = root;
-        while (p!=null&&p.data!=data){
-            if(p.data.compareTo(data)>0){
-                p=p.left;
-            }else {
-                p=p.right;
+        while (p != null && p.data != data) {
+            if (p.data.compareTo(data) > 0) {
+                p = p.left;
+            } else {
+                p = p.right;
             }
         }
-        return p!=null&&p.data.compareTo(data)==0;
+        return p != null && p.data.compareTo(data) == 0;
     }
 
     /**
      * 前序遍历二叉树
      */
-    public void prePrintAvlTree(){
+    public void prePrintAvlTree() {
         prePrintAvlTreeCore(this.root);
         System.out.println();
     }
 
-    private void prePrintAvlTreeCore(AvlNode root){
-        if (root!=null){
-            System.out.print(root.data+", ");
+    private void prePrintAvlTreeCore(AvlNode root) {
+        if (root != null) {
+            System.out.print(root.data + ", ");
             prePrintAvlTreeCore(root.left);
             prePrintAvlTreeCore(root.right);
         }
@@ -344,15 +351,15 @@ public class AvlTree<T extends Comparable<T>> {
     /**
      * 中序遍历二叉树
      */
-    public void inPrintAvlTree(){
+    public void inPrintAvlTree() {
         inPrintAvlTreeCore(this.root);
         System.out.println();
     }
 
-    private void inPrintAvlTreeCore(AvlNode root){
-        if(root!=null){
+    private void inPrintAvlTreeCore(AvlNode root) {
+        if (root != null) {
             inPrintAvlTreeCore(root.left);
-            System.out.print(root.data+", ");
+            System.out.print(root.data + ", ");
             inPrintAvlTreeCore(root.right);
         }
     }
