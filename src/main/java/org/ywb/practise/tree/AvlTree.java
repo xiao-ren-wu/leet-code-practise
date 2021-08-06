@@ -52,11 +52,11 @@ public class AvlTree<T extends Comparable<T>> {
     /**
      * 左旋
      *       4                2
-     *      | \              | \
+     *      / \              / \
      *     2   5    --->    1  4
-     *    | \              |  | \
-     *   1   3            0   3  5
-     *  |
+     *    / \              /  / \
+     *   1   3            0  3   5
+     *  /
      * 0
      *
      * @param avlNode 当前根节点
@@ -81,10 +81,10 @@ public class AvlTree<T extends Comparable<T>> {
     /**
      * 右旋
      *     2                    4
-     *    | \                  | \
-     *   1   4                 2  5
-     *      | \     --->      | \  \
-     *     3   5              1  3  6
+     *    / \                  / \
+     *   1   4                2   5
+     *      / \     --->     / \   \
+     *     3   5            1   3   6
      *          \
      *           6
      *
